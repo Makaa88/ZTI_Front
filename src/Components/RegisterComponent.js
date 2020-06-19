@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios'
 import { Link, Redirect } from 'react-router-dom';
-
+import '../index.css'
 
 
 class RegisterComponent extends Component
@@ -36,7 +36,7 @@ class RegisterComponent extends Component
         console.log("GHandle submit");
 
         axios.post(
-            "/auth/createAccount",
+            "https://mlprojekttomcat2020.eu-gb.mybluemix.net/auth/createAccount",
             {
                name: name, surname: surname, username: username, password: password
             }
@@ -59,28 +59,44 @@ class RegisterComponent extends Component
         }
 
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    Imię:
-                    <input type="text" name="name" onChange={this.handleChange}
-                           value={this.state.name} required/>
-                    <br/>
-                    Nazwisko:
-                    <input type="text" name="surname" onChange={this.handleChange}
-                           value={this.state.surname} required/>
-                    <br/>
-                    Login:
-                    <input type="text" name="username" onChange={this.handleChange}
-                           value={this.state.username} required/>
-                    <br/>
-                    Hasło:
-                    <input type="password" name="password" onChange={this.handleChange}
-                           value={this.state.password} required/>
-                    <br/>
-                    <button type="submit">Zarejestruj</button>
-                </form>
+            <div className="container login-container center">
+                <div className="login-form-1">
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="row padding5">
+                            <div className="col-sm"> Imię: </div>
+                            <div className="col-sm">
+                                <input className="form-control" type="text" name="name" onChange={this.handleChange}
+                                   value={this.state.name} required/>
+                            </div>
+                        </div>
+                        <div className="row padding5">
+                            <div className="col-sm">Nazwisko:</div>
+                            <div className="col-sm">
+                                <input className="form-control" type="text" name="surname" onChange={this.handleChange}
+                                   value={this.state.surname} required/>
+                            </div>
+                        </div>
+                        <div className="row padding5">
+                            <div className="col-sm">Login:</div>
+                            <div className="col-sm">
+                                <input className="form-control" type="text" name="username" onChange={this.handleChange}
+                                   value={this.state.username} required/>
+                            </div>
+                        </div>
+                        <div className="row padding5">
+                            <div className="col-sm">Hasło:</div>
+                            <div className="col-sm">
+                                <input className="form-control" type="password" name="password" onChange={this.handleChange}
+                                   value={this.state.password} required/>
+                            </div>
+                        </div>
+                        <div className="padding15">
+                            <button className="btn btn-primary btn-lg center-block" type="submit">Zarejestruj</button>
+                        </div>
+                    </form>
 
-                <p>{this.state.loginErrors}</p>
+                    <p>{this.state.loginErrors}</p>
+                </div>
             </div>
         );
     }

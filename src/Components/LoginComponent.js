@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios'
 import { Link, Redirect } from 'react-router-dom';
-
+import '../index.css'
 
 class LoginComponent extends Component
 {
@@ -33,7 +33,7 @@ class LoginComponent extends Component
         console.log("GHandle submit");
 
         axios.post(
-            "/auth/login",
+            "https://mlprojekttomcat2020.eu-gb.mybluemix.net/auth/login",
             {
                 username: username, password: password
             }
@@ -41,6 +41,8 @@ class LoginComponent extends Component
             if(response.data.loginStatus)
             {
                 console.log("Loged");
+                sessionStorage.setItem("session", response.data.person.id);
+                console.log(sessionStorage.getItem("session"));
                 this.setState({redirect: true});
 
             }
@@ -57,25 +59,35 @@ class LoginComponent extends Component
         const {redirect} = this.state;
         if(redirect)
         {
-            return  <Link to='/expenses'/>;
+            return  <Redirect to='/expenses'/>;
         }
 
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    Login:
-                    <input type="text" name="username" onChange={this.handleChange}
-                           value={this.state.username} required/>
-                           <br/>
-                    Hasło:
-                    <input type="password" name="password" onChange={this.handleChange}
-                           value={this.state.password} required/>
-                    <br/>
-                    <button type="submit">Zaloguj</button>
-                </form>
+            <div className="container login-container center">
+                <div className="login-form-1">
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="form-group">
+                        Login:
+                        <input className="form-control center-block" type="text" name="username" onChange={this.handleChange}
+                               value={this.state.username} required/>
+                        </div>
+                        <div className="form-group">
+                        Hasło:
+                        <input className="form-control center-block" type="password" name="password" onChange={this.handleChange}
+                               value={this.state.password} required/>
+                        </div>
+                        <div className="form-group row justify-content-center align-items-center">
+                            <button className="btn btn-primary btn-lg center-block" type="submit">Zaloguj</button>
+                        </div>
+                    </form>
 
-                <p>{this.state.loginErrors}</p>
-                <div className='dontHaveAccountStyle'>Utwórz konto <Link to='/register'>Zarejestruj się</Link></div>
+                    <p>{this.state.loginErrors}</p>
+                    <div className="form-group row justify-content-center align-items-center">
+
+                            Utwórz konto <Link to='/register'>Zarejestruj się</Link>
+
+                    </div>
+                </div>
             </div>
         );
     }

@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import axios from "axios";
 import { Link, Redirect } from 'react-router-dom';
 
-import Expense from './Expense';
-import AddExpense from './AddExpense';
+import Income from './Income';
+import AddIncome from './AddIncome';
 
-class ExpensesComponent extends Component
+class IncomeComponent extends Component
 {
     constructor(props)
     {
@@ -27,7 +27,7 @@ class ExpensesComponent extends Component
 
     componentDidMount() {
         let id = parseInt(sessionStorage.getItem("session"));
-        axios.get("https://mlprojekttomcat2020.eu-gb.mybluemix.net/expenses/getExpenses/"+id)
+        axios.get("https://mlprojekttomcat2020.eu-gb.mybluemix.net/income/getIncome/"+id)
             .then(response => {
                 this.setState({data: response.data});
                 const sum = this.state.data.reduce((prev, curr) => prev + curr.amount,0);
@@ -35,8 +35,6 @@ class ExpensesComponent extends Component
                 this.setState({amountSpent: sum});
             });
 
-
-        console.log("comonent did mount");
     }
 
     makeAddPossible()
@@ -59,11 +57,10 @@ class ExpensesComponent extends Component
         m.setMonth(current.getMonth());
         m.setFullYear(current.getFullYear());
         let id = parseInt(sessionStorage.getItem("session"));
-        console.log(id);
 
         this.setState({sorted: true});
         axios.post(
-            "https://mlprojekttomcat2020.eu-gb.mybluemix.net/expenses/getSorted",
+            "https://mlprojekttomcat2020.eu-gb.mybluemix.net/income/getSorted",
             {
                 date: m, amount: 0, goal: "", personId: id
             }
@@ -95,7 +92,7 @@ class ExpensesComponent extends Component
             <div>
                 <div>
                     {
-                        this.state.add && <AddExpense add={this.state.add}/>
+                        this.state.add && <AddIncome add={this.state.add}/>
                     }
                     <button type="button" onClick={this.makeAddPossible.bind(this)}> Dodaj </button>
                 </div>
@@ -114,12 +111,12 @@ class ExpensesComponent extends Component
                 </div>
 
                 <div>
-                    <p>W tym okresie wydałes {this.state.amountSpent}</p>
+                    <p>W tym okresie zarobiono {this.state.amountSpent}</p>
                 </div>
 
 
                 <div>
-                    {this.state.data.map(element => <Expense expense={element}/> )}
+                    {this.state.data.map(element => <Income expense={element}/> )}
 
                 </div>
             </div>
@@ -127,4 +124,4 @@ class ExpensesComponent extends Component
     }
 }
 
-export default ExpensesComponent;
+export default IncomeComponent;
