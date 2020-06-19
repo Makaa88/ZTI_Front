@@ -33,7 +33,7 @@ class AddExpense extends Component
         let id = parseInt(sessionStorage.getItem("session"));
 
         axios.post(
-            "https://mlprojekttomcat2020.eu-gb.mybluemix.net/expenses/addExpense",
+            "https://mlprojekttomcat2020.eu-gb.mybluemix.net/expenses/addExpense/",
             {
                 date: date, amount: ammount, goal: goal, personId: id
             }

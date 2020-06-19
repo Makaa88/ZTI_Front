@@ -32,7 +32,7 @@ class AddIncome extends Component
         let id = parseInt(sessionStorage.getItem("session"));
 
         axios.post(
-            "https://mlprojekttomcat2020.eu-gb.mybluemix.net/income/addIncome",
+            "https://mlprojekttomcat2020.eu-gb.mybluemix.net/income/addIncome/",
             {
                 date: date, amount: ammount, goal: goal, personId: id
             }
